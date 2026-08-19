@@ -261,17 +261,16 @@ const ITEMS = [
   {n:'avocado',e:'🥑',c:'fruit-veg',s:'Fruit'},
 
   // Bakery
-  {n:'filo pastry',e:'🥐',c:'bakery'},
+  {n:'filo pastry',e:'🥐',c:'bakery',s:'Baking'},
+  {n:'puff pastry',e:'🥐',c:'bakery',s:'Baking'},
   {n:'lebanese bread',e:'🫓',c:'bakery'},
   {n:"mar'ou'",e:'🫓',c:'bakery'},
-  {n:'maïzena',e:'🌽',c:'bakery'},
   {n:'sourdough bread',e:'🍞',c:'bakery'},
-  {n:'puff pastry',e:'🥐',c:'bakery',s:'Baking'},
 
   // Dairy
   {n:'butter',e:'🧈',c:'dairy'},
-  {n:'cooking cream',e:'🫙',c:'dairy'},
-  {n:'cottage cheese',e:'🧀',c:'dairy'},
+  {n:'cooking cream',e:'🥛',c:'dairy'},
+  {n:'cottage cheese',e:'🥛',c:'dairy'},
   {n:'eggs',e:'🥚',c:'dairy'},
   {n:'feta',e:'🧀',c:'dairy'},
   {n:'fresh milk',e:'🥛',c:'dairy'},
@@ -293,32 +292,34 @@ const ITEMS = [
   {n:'turkey',e:'🦃',c:'meat-fish'},
 
   // Frozen
-  {n:'frozen berries',e:'🫐',c:'frozen',s:'Fruit'},
   {n:'frozen shrimps',e:'🍤',c:'frozen'},
+  {n:'frozen berries',e:'🫐',c:'frozen',s:'Fruit'},
   {n:'passion fruit',e:'🍈',c:'frozen',s:'Fruit'},
 
   // Pantry
-  {n:'avocado oil',e:'🥑',c:'pantry'},
-  {n:'distilled white vinegar',e:'🍶',c:'pantry'},
+  {n:'olive oil',e:'🫒',c:'pantry',s:'Oil & Vinegar'},
+  {n:'avocado oil',e:'🥑',c:'pantry',s:'Oil & Vinegar'},
+  {n:'canola oil',e:'🛢️',c:'pantry',s:'Oil & Vinegar'},
+  {n:'coconut oil',e:'🥥',c:'pantry',s:'Oil & Vinegar'},
+  {n:'distilled white vinegar',e:'🍶',c:'pantry',s:'Oil & Vinegar'},
   {n:'jam',e:'🫙',c:'pantry'},
   {n:'mustard',e:'🟡',c:'pantry'},
-  {n:'olive oil',e:'🫒',c:'pantry'},
   {n:'pasta',e:'🍝',c:'pantry'},
   {n:'tofu',e:'⬜',c:'pantry'},
-  {n:'almond flour',e:'🌰',c:'pantry',s:'Baking'},
-  {n:'coconut sugar',e:'🥥',c:'pantry',s:'Baking'},
-  {n:'cornstarch',e:'🌽',c:'pantry',s:'Baking'},
-  {n:'baking soda',e:'🥄',c:'pantry',s:'Baking'},
   {n:'flour',e:'🌾',c:'pantry',s:'Baking'},
   {n:'lupin flour',e:'🌾',c:'pantry',s:'Baking'},
-  {n:'raw cane sugar',e:'🟤',c:'pantry',s:'Baking'},
-  {n:'sugar syrup',e:'🍯',c:'pantry',s:'Baking'},
+  {n:'almond flour',e:'🌰',c:'pantry',s:'Baking'},
+  {n:'cornstarch',e:'🌽',c:'pantry',s:'Baking'},
+  {n:'baking soda',e:'🥄',c:'pantry',s:'Baking'},
   {n:'vanilla',e:'🍦',c:'pantry',s:'Baking'},
-  {n:'white sugar',e:'⚪',c:'pantry',s:'Baking'},
+  {n:'white sugar',e:'⚪',c:'pantry',s:'Condiments'},
+  {n:'coconut sugar',e:'🥥',c:'pantry',s:'Condiments'},
+  {n:'raw cane sugar',e:'🟤',c:'pantry',s:'Condiments'},
+  {n:'sugar syrup',e:'🍯',c:'pantry',s:'Condiments'},
+  {n:'coconut cream',e:'🥥',c:'pantry',s:'Condiments'},
   {n:'artichoke hearts',e:'🥫',c:'pantry',s:'Condiments'},
   {n:'black beans',e:'🫘',c:'pantry',s:'Condiments'},
   {n:'chickpeas',e:'🫘',c:'pantry',s:'Condiments'},
-  {n:'coconut cream',e:'🥥',c:'pantry',s:'Condiments'},
   {n:'kidney beans',e:'🫘',c:'pantry',s:'Condiments'},
   {n:'lupin beans',e:'🫘',c:'pantry',s:'Condiments'},
   {n:'mung beans',e:'🫘',c:'pantry',s:'Condiments'},
@@ -326,12 +327,11 @@ const ITEMS = [
   {n:'tomato canned diced',e:'🍅',c:'pantry',s:'Condiments'},
   {n:'tomato concentrate',e:'🍅',c:'pantry',s:'Condiments'},
   {n:'tuna',e:'🥫',c:'pantry',s:'Condiments'},
-  {n:'canola oil',e:'🛢️',c:'pantry',s:'Oil'},
-  {n:'cardamom',e:'🌿',c:'pantry',s:'Spice'},
-  {n:'cinnamon',e:'🪵',c:'pantry',s:'Spice'},
-  {n:'fennel seeds',e:'🌱',c:'pantry',s:'Spice'},
-  {n:'nutritional yeast',e:'🟡',c:'pantry',s:'Spice'},
+  {n:'nutritional yeast',e:'🌿',c:'pantry',s:'Condiments'},
   {n:'table salt',e:'🧂',c:'pantry',s:'Spice'},
+  {n:'cardamom',e:'🌿',c:'pantry',s:'Spice'},
+  {n:'cinnamon',e:'🌿',c:'pantry',s:'Spice'},
+  {n:'fennel seeds',e:'🌿',c:'pantry',s:'Spice'},
 
   // Healthy
   {n:'brazil nuts',e:'🥜',c:'healthy',s:'Nuts'},
@@ -353,7 +353,7 @@ const ITEMS = [
   {n:'oat',e:'🌾',c:'healthy',s:'Grains'},
   {n:'psyllium husks',e:'🌾',c:'healthy',s:'Grains'},
   {n:'quinoa',e:'🌾',c:'healthy',s:'Grains'},
-  {n:'lentils',e:'🫘',c:'healthy',s:'Grains'},
+  {n:'lentils',e:'🌾',c:'healthy',s:'Grains'},
 
   // Sweets & Snacks
   {n:'allulose syrup',e:'🍯',c:'sweets'},
@@ -372,9 +372,9 @@ const ITEMS = [
   {n:'wine',e:'🍷',c:'drinks',s:'Alcohol'},
   {n:'black tea (Twinings)',e:'🫖',c:'drinks',s:'Hot'},
   {n:'tonic',e:'🍸',c:'drinks',s:'Soft drink'},
+  {n:'coconut water',e:'🥥',c:'drinks',s:'Soft drink'},
   {n:'sparkling water',e:'🫧',c:'drinks',s:'Water'},
   {n:'water',e:'💧',c:'drinks',s:'Water'},
-  {n:'coconut water (C20)',e:'🥥',c:'drinks',s:'Water'},
 
   // Personal Hygiene
   {n:'body soap',e:'🧼',c:'hygiene'},
@@ -468,8 +468,6 @@ const ICONS = {
   'mozarella': '<svg viewBox="0 0 48 48"><ellipse cx="24" cy="36" rx="17" ry="4.5" fill="#e4ebe0"/><circle cx="24" cy="21" r="16" fill="#f6f9ee" stroke="#c9d4ba" stroke-width="1.6"/><circle cx="24" cy="21" r="16" fill="none" stroke="#dfe7d2" stroke-width="3.5" opacity="0.6"/><ellipse cx="17" cy="14" rx="5.5" ry="3.2" fill="#ffffff" opacity="0.95"/></svg>',
 
   'parmesan': '<svg viewBox="0 0 48 48"><path d="M8 37 L18 7 L41 20 L41 37 Z" fill="#f5d98a" stroke="#cba24e" stroke-width="1.2"/><path d="M8 37 L41 37 L41 33 L10 33 Z" fill="#e0be6d"/><g fill="#c9a24a"><circle cx="22" cy="24" r="0.8"/><circle cx="28" cy="19" r="0.8"/><circle cx="26" cy="28" r="0.8"/><circle cx="33" cy="25" r="0.8"/><circle cx="18" cy="29" r="0.8"/></g></svg>',
-
-  'chicken': '<svg viewBox="0 0 48 48"><path d="M20 7 Q26 7 26 15 Q35 19 34 28 Q34 39 24 41 Q15 42 13 34 Q11 27 18 23 Q13 19 15 13 Q16 8 20 7 Z" fill="#f0b8a0" stroke="#d99880" stroke-width="1"/><path d="M20 7 Q26 7 26 15" fill="none" stroke="#f3ecdf" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="24" cy="34" rx="10" ry="7.5" fill="#e8987a"/></svg>',
 };
 
 /* ---------- Persistence ---------- */
