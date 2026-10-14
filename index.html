@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
 <title>Groceries</title>
 
-<!-- Icon (used for browser favicon and iPhone home screen) -->
-<link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
-<meta name="theme-color" content="#ffffff">
-
-<!-- Add to Home Screen (iPhone) -->
+<!-- Installable app: manifest + icons (iPhone: Share → Add to Home Screen) -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141614" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Groceries">
 <style>
@@ -25,9 +27,34 @@
     --accent-soft:#eaf6ec;
     --shadow: 0 1px 2px rgba(20,20,20,.04), 0 6px 20px rgba(20,20,20,.05);
     --radius: 16px;
+    --header-bg: rgba(246,245,242,.92);
+    --check-border:#cfd3d9;
+    --dash:#d5d9de;
+    --badge-zero:#c7cbd1;
+    --danger:#c0392b;
+    --on-accent:#ffffff;
+    --clear-bg:#e4e6ea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141614; --card:#1e211f; --ink:#eceee9; --muted:#9aa09a; --line:#2c302d;
+      --accent:#40b85a; --accent-soft:#1f3324; --header-bg:rgba(20,22,20,.92);
+      --check-border:#4a4f4b; --dash:#3a3f3b; --badge-zero:#4a4f4b; --danger:#ff7a6b;
+      --clear-bg:#3a3f3b; --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.3);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141614; --card:#1e211f; --ink:#eceee9; --muted:#9aa09a; --line:#2c302d;
+    --accent:#40b85a; --accent-soft:#1f3324; --header-bg:rgba(20,22,20,.92);
+    --check-border:#4a4f4b; --dash:#3a3f3b; --badge-zero:#4a4f4b; --danger:#ff7a6b;
+    --clear-bg:#3a3f3b; --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.3);
+    color-scheme:dark;
   }
   * { box-sizing:border-box; }
   html,body{ margin:0; padding:0; }
+  html{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); background:var(--bg); }
+  [hidden]{ display:none !important; }
   body{
     background:var(--bg);
     color:var(--ink);
@@ -38,8 +65,8 @@
 
   /* Header */
   header{
-    position:sticky; top:0; z-index:20;
-    background: rgba(246,245,242,.92);
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+    background: var(--header-bg);
     backdrop-filter: blur(10px);
     border-bottom:1px solid var(--line);
     padding: 14px 16px 12px;
@@ -52,10 +79,10 @@
     font-size:20px; margin:0; display:flex; align-items:center; gap:8px; letter-spacing:-.2px;
   }
   .badge{
-    background:var(--accent); color:white; font-size:13px; font-weight:700;
+    background:var(--accent); color:var(--on-accent); font-size:13px; font-weight:700;
     border-radius:999px; padding:3px 10px; min-width:24px; text-align:center;
   }
-  .badge.zero{ background:#c7cbd1; }
+  .badge.zero{ background:var(--badge-zero); }
 
   .controls{
     max-width:720px; margin:10px auto 0; display:flex; gap:8px; align-items:center;
@@ -73,7 +100,7 @@
     background:var(--card); border:1px solid var(--line); border-radius:12px;
     padding:10px 14px; font-size:14px; font-weight:600; color:var(--ink); cursor:pointer;
   }
-  .toggle-btn.active{ background:var(--accent); border-color:var(--accent); color:white; }
+  .toggle-btn.active{ background:var(--accent); border-color:var(--accent); color:var(--on-accent); }
 
   main{ max-width:720px; margin:14px auto 0; padding:0 16px; }
 
@@ -116,13 +143,13 @@
   .item .emoji{ font-size:20px; width:26px; text-align:center; flex:none; display:flex; align-items:center; justify-content:center; }
   .item .emoji svg{ width:22px; height:22px; display:block; }
   .item .name{ flex:1; font-size:15px; }
-  .item.checked .name{ color:var(--muted); text-decoration:line-through; text-decoration-color:#c6c9ce; }
+  .item.checked .name{ color:var(--muted); text-decoration:line-through; text-decoration-color:var(--muted); }
   .item.checked .emoji{ opacity:.55; }
 
   .checkbox{
-    width:23px; height:23px; border-radius:7px; border:2px solid #cfd3d9; flex:none;
+    width:23px; height:23px; border-radius:7px; border:2px solid var(--check-border); flex:none;
     display:flex; align-items:center; justify-content:center; cursor:pointer;
-    background:white; transition: all .12s ease;
+    background:var(--card); transition: all .12s ease;
   }
   .checkbox svg{ opacity:0; transform:scale(.5); transition: all .12s ease; }
   .item.checked .checkbox{ background:var(--accent); border-color:var(--accent); }
@@ -133,24 +160,24 @@
   }
 
   .add-btn{
-    flex:none; border:1.5px solid var(--accent); color:var(--accent); background:white;
+    flex:none; border:1.5px solid var(--accent); color:var(--accent); background:var(--card);
     border-radius:20px; padding:6px 14px; font-size:13.5px; font-weight:700; cursor:pointer;
     transition: all .12s ease; display:flex; align-items:center; gap:5px;
   }
-  .add-btn.added{ background:var(--accent); color:white; }
+  .add-btn.added{ background:var(--accent); color:var(--on-accent); }
 
   /* Add item bar */
   .add-bar{
     max-width:720px; margin:6px auto 0; padding:0 16px;
   }
   .add-form{
-    display:flex; gap:8px; background:var(--card); border:1px dashed #d5d9de; border-radius:14px; padding:8px;
+    display:flex; gap:8px; background:var(--card); border:1px dashed var(--dash); border-radius:14px; padding:8px;
   }
   .add-form input{
     flex:1; border:none; outline:none; font-size:15px; padding:8px 10px; background:transparent; color:var(--ink);
   }
   .add-form button{
-    background:var(--accent); color:white; border:none; border-radius:10px; padding:0 16px;
+    background:var(--accent); color:var(--on-accent); border:none; border-radius:10px; padding:0 16px;
     font-weight:700; font-size:14px; cursor:pointer;
   }
 
@@ -159,10 +186,26 @@
     align-items:center; color:var(--muted); font-size:12.5px;
   }
   footer button{
-    background:none; border:none; color:#c0392b; font-size:13px; font-weight:600; cursor:pointer; padding:6px 0;
+    background:none; border:none; color:var(--danger); font-size:13px; font-weight:600; cursor:pointer; padding:6px 0;
   }
 
-  ::selection{ background:#cdeed4; }
+  ::selection{ background:var(--accent-soft); }
+  .item .emoji img{ width:22px; height:22px; }
+
+  /* Clear-search button */
+  .search-wrap input{ padding-right:40px; }
+  .search-wrap input::-ms-clear{ display:none; }
+  .search-clear{
+    position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    width:30px; height:30px; border:none; background:none; padding:0; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .search-clear span{
+    width:20px; height:20px; border-radius:50%; background:var(--clear-bg); color:var(--muted);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .search-clear:focus-visible{ outline:2px solid var(--accent); border-radius:50%; }
+  .search-wrap .search-clear svg{ position:static; transform:none; opacity:1; }
 </style>
 </head>
 <body>
@@ -176,6 +219,7 @@
     <div class="search-wrap">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input id="search" type="text" placeholder="Search items…" autocomplete="off">
+      <button type="button" id="searchClear" class="search-clear" aria-label="Clear search" hidden><span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span></button>
     </div>
   </div>
 </header>
@@ -221,7 +265,8 @@ const ITEMS = [
   {n:'eggplant',e:'🍆',c:'fruit-veg',s:'Veggies'},
   {n:'zucchini',e:'🥒',c:'fruit-veg',s:'Veggies'},
   {n:'mushrooms',e:'🍄',c:'fruit-veg',s:'Veggies'},
-  {n:'onion',e:'🧅',c:'fruit-veg',s:'Veggies'},
+  {n:'red onion',e:'🧅',c:'fruit-veg',s:'Veggies'},
+  {n:'white onion',e:'🧅',c:'fruit-veg',s:'Veggies'},
   {n:'echalotte',e:'🧅',c:'fruit-veg',s:'Veggies'},
   {n:'green onion',e:'🌱',c:'fruit-veg',s:'Veggies'},
   {n:'garlic',e:'🧄',c:'fruit-veg',s:'Veggies'},
@@ -327,6 +372,7 @@ const ITEMS = [
   {n:'tomato canned diced',e:'🍅',c:'pantry',s:'Condiments'},
   {n:'tomato concentrate',e:'🍅',c:'pantry',s:'Condiments'},
   {n:'tuna',e:'🥫',c:'pantry',s:'Condiments'},
+  {n:'soy sauce',e:'🍶',c:'pantry',s:'Condiments'},
   {n:'nutritional yeast',e:'🌿',c:'pantry',s:'Condiments'},
   {n:'table salt',e:'🧂',c:'pantry',s:'Spice'},
   {n:'cardamom',e:'🌿',c:'pantry',s:'Spice'},
@@ -482,27 +528,31 @@ function slug(name){ return name.trim().toLowerCase(); }
 function loadInList(){
   try { return JSON.parse(localStorage.getItem(INLIST_KEY)) || {}; } catch(e){ return {}; }
 }
-function saveInList(obj){ localStorage.setItem(INLIST_KEY, JSON.stringify(obj)); }
+function saveInList(obj){ try { localStorage.setItem(INLIST_KEY, JSON.stringify(obj)); } catch(e){} }
 
 function loadStruck(){
   try { return JSON.parse(localStorage.getItem(STRUCK_KEY)) || {}; } catch(e){ return {}; }
 }
-function saveStruck(obj){ localStorage.setItem(STRUCK_KEY, JSON.stringify(obj)); }
+function saveStruck(obj){ try { localStorage.setItem(STRUCK_KEY, JSON.stringify(obj)); } catch(e){} }
 
 function loadCustom(){
   try { return JSON.parse(localStorage.getItem(CUSTOM_KEY)) || []; } catch(e){ return []; }
 }
-function saveCustom(arr){ localStorage.setItem(CUSTOM_KEY, JSON.stringify(arr)); }
+function saveCustom(arr){ try { localStorage.setItem(CUSTOM_KEY, JSON.stringify(arr)); } catch(e){} }
 
 function loadCollapsed(){
   try { return JSON.parse(localStorage.getItem(COLLAPSE_KEY)) || {}; } catch(e){ return {}; }
 }
-function saveCollapsed(obj){ localStorage.setItem(COLLAPSE_KEY, JSON.stringify(obj)); }
+function saveCollapsed(obj){ try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify(obj)); } catch(e){} }
 
 let inList = loadInList();
 let struck = loadStruck();
 let custom = loadCustom(); // [{n, e, c:'custom'}]
 let collapsed = loadCollapsed();
+
+// "onion" was split into red/white onion: carry an existing "onion" over to "red onion"
+if (inList['onion']) { inList['red onion'] = true; delete inList['onion']; saveInList(inList); }
+if (struck['onion']) { struck['red onion'] = true; delete struck['onion']; saveStruck(struck); }
 let myListOnly = false;
 let query = '';
 
@@ -671,9 +721,21 @@ function removeFromList(key){
 }
 
 /* ---------- Controls ---------- */
-document.getElementById('search').addEventListener('input', (e) => {
+const searchInput = document.getElementById('search');
+const searchClear = document.getElementById('searchClear');
+searchInput.addEventListener('input', (e) => {
   query = e.target.value;
+  searchClear.hidden = !query;
   render();
+});
+// Keep the keyboard open: don't let the button steal focus on tap
+searchClear.addEventListener('pointerdown', (e) => e.preventDefault());
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  query = '';
+  searchClear.hidden = true;
+  render();
+  searchInput.focus();
 });
 
 const listToggleBtn = document.getElementById('listToggle');
@@ -711,6 +773,12 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 });
 
 render();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
