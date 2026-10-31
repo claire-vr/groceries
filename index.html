@@ -310,7 +310,7 @@ const ITEMS = [
   {n:'filo pastry',e:'🥐',c:'bakery',s:'Baking'},
   {n:'puff pastry',e:'🥐',c:'bakery',s:'Baking'},
   {n:'lebanese bread',e:'🫓',c:'bakery'},
-  {n:"mar'ou'",e:'🫓',c:'bakery'},
+  {n:'marqouq',e:'🫓',c:'bakery'},
   {n:'sourdough bread',e:'🍞',c:'bakery'},
 
   // Dairy
@@ -553,6 +553,8 @@ let custom = loadCustom(); // [{n, e, c:'custom'}]
 let collapsed = loadCollapsed();
 
 // "onion" was split into red/white onion: carry an existing "onion" over to "red onion"
+if (inList["mar'ou'"]) { inList['marqouq'] = true; delete inList["mar'ou'"]; saveInList(inList); }
+if (struck["mar'ou'"]) { struck['marqouq'] = true; delete struck["mar'ou'"]; saveStruck(struck); }
 if (inList['onion']) { inList['red onion'] = true; delete inList['onion']; saveInList(inList); }
 if (struck['onion']) { struck['red onion'] = true; delete struck['onion']; saveStruck(struck); }
 let myListOnly = false;
